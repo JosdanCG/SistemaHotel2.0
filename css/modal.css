@@ -1,0 +1,15 @@
+.top {
+    top: 0;
+    height: 100vh;
+    background-color: #0004;
+    display: grid;
+    transition: .4s;
+    place-items: center;
+}
+
+
+.form_cliente {
+    background-color: #c2ccc5;
+    height: 50dp;
+    padding: 4rem;
+}

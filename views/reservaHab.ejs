@@ -1,0 +1,189 @@
+<div class="reserv container-fluid">
+    <div class="row min-vh-100 flex-column flex-md-row">
+        <%- include("templates/bootstrap")%>
+            <%- include("templates/nav")%>
+                <link rel="stylesheet" href="/habitaciones.css">
+                <main class="col back_hab px-0 flex-grow-1">
+                    <div class="container py-3">
+                        <article>
+                            <% if(habitacion){ %>
+
+                                <div class="containerreserva">
+                                    <div class="derreserva">
+                                        <h3>Detalle de habitacion</h3>
+                                        <div>
+                                            <div class="row mt-4">
+                                                <div class="col">Numero: <input type="text" name="idhabi"
+                                                        value="<%= habitacion.IdHabitacion%>" readonly> </div>
+
+                                                <!-- guardar el valor del Precio -->
+                                                <input name="preciohab" class="ocultar" type="text"
+                                                    value="<%= habitacion.PrecioH %>">
+
+                                                <div class="col">Precio por noche: <%= habitacion.PrecioH%>
+                                                </div>
+                                                <div class="col">Categoria: <%= habitacion.TipoH%>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+
+
+
+
+                                    <div class="containerCliente">
+                                        <div class="row mt-5">
+
+                                            <!-- buscar mi cliente -->
+                                            <div class="col deCliente">
+
+                                                <!--///////////////////////////////////////////-->
+
+                                                <!-- Sección para buscar cliente por ID -->
+                                                <section class="title-reserva">
+                                                    <h2>Buscar cliente por DNI:</h2>
+                                                </section>
+
+                                                <section class="tabla-reserva">
+                                                    <form id="clienteForm">
+                                                        <label for="clienteDNI">ID del cliente:</label>
+                                                        <input type="text" id="clienteDNI" name="dni" required>
+
+                                                        <% if(habitacion){ %>
+                                                            <input type="hidden" id="idhabi" name="idhabi"
+                                                                value="<%= habitacion.IdHabitacion %>">
+                                                            <% } %>
+
+                                                                <button class="btn-reserva"
+                                                                    type="submit">Buscar</button>
+                                                    </form>
+                                                </section>
+
+                                                <!-- Mostrar información del cliente (si se encuentra) -->
+                                                <% if (cliente) { %>
+                                                    <h2>Información del cliente:</h2>
+                                                    <p class="parrafoC">Nombres:</p>
+                                                    <input class="detalle-cliente" type="text"
+                                                        value="<%= cliente.Nombres %>" readonly="true" disabled>
+
+                                                    <p class="parrafoC">Apellidos:</p>
+                                                    <input class="detalle-cliente" type="text"
+                                                        value="<%= cliente.Apellidos %>" readonly="true" disabled>
+
+                                                    <p class="parrafoC">DNI:</p>
+                                                    <input class="detalle-cliente" type="text"
+                                                        value="<%= cliente.DNI %>" readonly="true" disabled>
+
+                                                    <% } else { %>
+                                                        <!-- Mostrar mensaje si no se encontró un cliente con el ID especificado -->
+                                                        <p>No se encontró un cliente con el ID especificado.</p>
+                                                        <% } %>
+
+                                            </div>
+
+                                            <!-- registro del detalle de reserva -->
+                                            <div class="col deCliente">
+                                                <h3>Detalle Reservacion</h3>
+
+                                                <form action="/guardareservaH" method="post" id="reservacionForm">
+                                                    <div class="row">
+                                                        <label>Fecha de Entrada:</label>
+                                                        <div class=" form ">
+                                                            <input name="fechaentrada" type="date"
+                                                                class="inputde form-control" required>
+                                                        </div>
+                                                        <label>Fecha de Salida:</label>
+                                                        <div class=" form">
+                                                            <input name="fechasalida" type="date"
+                                                                class="inputde form-control" required>
+                                                        </div>
+
+                                                        <% if(cliente){ %>
+                                                            <input type="hidden" name="idclient"
+                                                                value="<%= cliente.IdCliente %>">
+                                                            <% } %>
+
+                                                                <% if (habitacion) { %>
+                                                                    <input type="hidden" name="idhabita"
+                                                                        value="<%= habitacion.IdHabitacion %>">
+
+                                                                    <input type="hidden" name="preciohabita"
+                                                                        value=" <%= habitacion.PrecioH %>">
+                                                                    <% } %>
+                                                                        <label>Tipo de Operacion</label>
+                                                                        <div class="col form">
+                                                                            <select class=" inputde form-control"
+                                                                                name="tipooperacion" id="tipooperacion">
+                                                                                <option value="reserva">Reserva</option>
+                                                                                <option value="alquiler">Alquiler
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5 mt-4">
+                                                            <button class="form-control btn btn-secondary" tabindex="7"
+                                                                id="registrarBtn">Registrar</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </article>
+                    </div>
+                </main>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Manejar el envío del formulario de búsqueda de cliente
+        $("form#clienteForm").submit(function (e) {
+            e.preventDefault();
+            const dni = $("#clienteDNI").val();
+            const idhabi = $("#idhabi").val();
+
+            // Realizar la solicitud AJAX para buscar al cliente
+            $.get(`/buscarCliente?dni=${dni}&idhabi=${idhabi}`, function (data) {
+                // Actualizar solo la sección "containerCliente" en la página
+                $(".containerCliente").html($(data).find(".containerCliente").html());
+            });
+        });
+    });
+    const dni = $("#clienteDNI").val();
+    const idhabi = $("#idhabi").val;
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    const registrarBtn = document.getElementById('registrarBtn');
+    const form = document.getElementById('reservacionForm');
+
+    registrarBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // Validar campos antes de enviar el formulario
+        const fechaEntrada = form.querySelector('input[name="fechaentrada"]');
+        const fechaSalida = form.querySelector('input[name="fechasalida"]');
+
+        if (fechaEntrada.value.trim() === '' || fechaSalida.value.trim() === '') {
+            // Mostrar alerta con SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos Vacíos',
+                text: 'Por favor, complete los campos de fecha de entrada y fecha de salida.',
+            });
+        } else {
+            // Si los campos no están vacíos, enviar el formulario
+            form.submit();
+        }
+    });
+</script>

@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="/style.css">
+<aside class="col-12 col-md-3 col-xl-2 p-0 bg flex-shinrk-1">
+  <nav
+    class="sidebar-wrapper navbar navbar-expand-md navbar-dark bd-dark flex-md-column flex-row align-items-center py-2 text-center sticky-top"
+    id="sidebar">
+    <div class="text-center p-3">
+      <img src="/logo_icon.svg" alt="picture" width="150px"
+        class="img-fluid rounded-circle my-4 d-none d-md-block shadow" />
+      <a href="/index" class="navbar-brand mx-0 font-weight-bold text-nowrap">Hotel</a>
+    </div>
+    <button class="navbar-toggler border-0 order-1" type="button" data-toggler="collapse" data-target="#nav"
+      aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="sidebar-menu" id="nav">
+      <ul class="navbar-nav flex-column w-10">
+        <li class="sidebar-dropdown">
+          <a href="/dashboard" class="main-letter">
+            <i class="fa fa-tachometer-alt"></i>
+            <span>Dashboard habitaciones</span>
+          </a>
+        </li>
+
+        <li class="sidebar-dropdown">
+          <a href="/habitaciones">
+            <i class="fa fa-bed"></i>
+            <span>Habitaciones</span>
+          </a>
+        </li>
+        <li class="sidebar-dropdown">
+          <a href="/listadoreservaHab">
+            <i class="fa fa-bed"></i>
+            <span>Reservas H</span>
+          </a>
+        </li>
+
+        <li class="sidebar-dropdown">
+          <a href="/listadoPagos">
+            <i class="fa fa-book"></i>
+            <span>Pagos Habitaciones</span>
+          </a>
+        </li>
+
+
+        <li class="sidebar-dropdown">
+          <a href="/dashboards" class="main-letter">
+            <i class="fa fa-tachometer-alt"></i>
+            <span>Dashboard salones</span>
+          </a>
+        </li>
+
+        <li class="sidebar-dropdown">
+          <a href="/salones">
+            <i class="fa fa-bed"></i>
+            <span>Salones</span>
+          </a>
+        </li>
+
+        <li class="sidebar-dropdown">
+          <a href="/listadoreservaSal">
+            <i class="fa fa-bed"></i>
+            <span>Reservas S</span>
+          </a>
+        </li>
+
+        <li class="sidebar-dropdown">
+          <a href="/listadoPagosS">
+            <i class="fa fa-book"></i>
+            <span>Pagos Salones</span>
+          </a>
+        </li>
+
+        <li class="sidebar-dropdown">
+          <a href="/cliente">
+            <i class="fa fa-users"></i>
+            <span>Clientes</span>
+          </a>
+        </li>
+        <br>
+        <li class="nav-item">
+          <a href="/" class="btn nav-link active">Cerrar Sesion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</aside>
+
+<script>
+  jQuery(function ($) {
+
+    $(".sidebar-dropdown > a").click(function () {
+      $(".sidebar-submenu").slideUp(200);
+      if ($(this).parent().hasClass("active")) {
+        $(".sidebar-dropdown").removeClass("active");
+        $(this).parent().removeClass("active");
+      }
+      else {
+        $(".sidebar-dropdown").removeClass("active");
+        $(this).next(".sidebar-submenu").slideDown(200);
+        $(this).parent().addClass("active");
+      }
+    });
+
+    $("#close-sidebar").click(function () {
+      $(".page-wrapper").removeClass("toggled");
+    });
+    $("#show-sidebar").click(function () {
+      $(".page-wrapper").addClass("toggled");
+    });
+  });
+</script>

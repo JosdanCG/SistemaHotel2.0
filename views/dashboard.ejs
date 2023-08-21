@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="row min-vh-100 flex-column flex-md-row">
+        <%- include("templates/bootstrap")%>
+            <%- include("templates/nav")%>
+                <div class="col px-0 flex-grow-1">
+                    <link rel="stylesheet" href="/dashboard.css">
+                    <div class="container text-center">
+                        <div class="row">
+                            <% total=0; disponibles=0; ocupadas=0; limpieza=0 %>
+                                <% resultdash.forEach((user)=>{%>
+                                    <% total+=1 %>
+                                        <% if(user.IdEstadoH==="EHA01" ){ocupadas+=1} %>
+                                            <% if(user.IdEstadoH==="EHA02" ){disponibles+=1} %>
+                                                <% if(user.IdEstadoH==="EHA03" ){limpieza+=1} %>
+                                                    <% }) %>
+                                                        <div class="tota card col m-4 mt-5 p-1">
+                                                            <div class="row justify-content-start">
+                                                                <div class="col-8 mt-2 ms-3">
+                                                                    <h6 class="card-text">Total de habitaciones</h6>
+                                                                    <p class="card-text">
+                                                                        <%= total %>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <img src="/total.png" class="card-img-top mt-4">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="disp card col m-4 mt-5 p-1">
+                                                            <div class="row justify-content-start">
+                                                                <div class="col-8 mt-2 ms-3">
+                                                                    <h6 class="card-text">Habitaciones Disponibles</h6>
+                                                                    <p class="card-text">
+                                                                        <%= disponibles %>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <img src="/disponible.png"
+                                                                        class="card-img-top mt-4">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ocup card col m-4 mt-5 p-1">
+                                                            <div class="row justify-content-start">
+                                                                <div class="col-8 mt-2 ms-3">
+                                                                    <h6 class="card-text">Habitaciones Ocupadas</h6>
+                                                                    <p class="card-text">
+                                                                        <%= ocupadas %>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <img src="/ocupado.png" class="card-img-top mt-4">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="limp card col m-4 mt-5 p-1">
+                                                            <div class="row justify-content-start">
+                                                                <div class="col-8 mt-2 ms-3">
+                                                                    <h6 class="card-text">Habitaciones Limpiesa</h6>
+                                                                    <p class="card-text">
+                                                                        <%= limpieza %>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <img src="/limpieza.png" class="card-img-top mt-4">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                        </div>
+                    </div>
+                </div>
+
+
+    </div>
+</div>

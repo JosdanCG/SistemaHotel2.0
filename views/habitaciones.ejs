@@ -1,0 +1,107 @@
+<div class="container-fluid">
+    <div class="row min-vh-100 flex-column flex-md-row">
+        <%- include("templates/bootstrap")%>
+            <%- include("templates/nav")%>
+                <div class="col px-0 flex-grow-1">
+                    <link rel="stylesheet" href="/habitaciones.css">
+                    <div class="container ">
+                        <div class="row">
+                            <% result.forEach((user)=>{%>
+                                <div class="col-3  mt-2">
+                                    <%if(user.EstadoH==="Ocupado"){%>
+                                        <div id="cardd" class="card" style="background-color: red; color: azure;">
+                                            <%} if(user.EstadoH==="Disponible" ){%>
+                                                <div id="cardd" class="card" style="background-color: #009688;">
+                                                    <%} if(user.EstadoH==="Limpiesa" ){%>
+                                                        <div id="cardd" class="card" style="background-color: #00d9ff;">
+                                                            <%} %>
+                                                                <div class="row justify-content-start">
+                                                                    <div class="col-7 mt-2 ms-3">
+                                                                        <h5 class="card-text">Nro: <%=
+                                                                                user.NmroHabitacion %>
+                                                                        </h5>
+                                                                        <p class="card-text">Tipo: <%= user.TipoH %>
+                                                                        </p>
+
+                                                                    </div>
+                                                                    <div class="col-4">
+                                                                        <!-- <a href="https://www.flaticon.com/free-icons/hotel" title="hotel icons"></a> -->
+                                                                        <img src="/icons/beds.png"
+                                                                            class="hab card-img-top mt-1">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card text-estado text-center">
+                                                                    <p id="estado" class="card-text m-1">
+                                                                        <%= user.EstadoH %>
+                                                                            <a
+                                                                                href="/reservaHab/<%= user.IdHabitacion %>"><img
+                                                                                    class="ms-2" src="/siguiente.png"
+                                                                                    width="20px" alt=""></a>
+
+                                                                            <button class=" btn-habitacion edit"
+                                                                                onclick="editarClienteModal('<%=user.IdHabitacion %>', '<%= user.EstadoH %>')">
+                                                                                <img src="/edit_icon.svg"
+                                                                                    width="20px"></img>
+                                                                            </button>
+                                                                    </p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <% }) %>
+                                        </div>
+
+                                </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
+
+<!-- Modal para editar estado de la habitacion -->
+<div class="modal fade " id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel"
+    aria-hidden="true" data-backdrop="false" data-keyboard="false">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarModalLabel">Editar Estado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form class="" action="/updateEstadoHab" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="idhabitacion" id="idhabitacion">
+
+
+                    <div class="form-group">
+                        <label for="Estado">Estado:"</label>
+                        <select name="estado" id="estado" class="form-control" required>
+                            <option value="EHA02">Disponible</option>
+                            <option value="EHA01">Ocupado</option>
+                            <option value="EHA03">Limpieza</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-info">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función que se ejecuta al hacer clic en el botón de editar
+    function editarClienteModal(idhabitacion, estadohab) {
+        // Rellenar los inputs del modal con la información del cliente
+        document.getElementById('idhabitacion').value = idhabitacion;
+        document.getElementById('estado').value = estadohab;
+        $('#editarModal').modal('show');
+    }
+</script>

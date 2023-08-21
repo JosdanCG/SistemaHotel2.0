@@ -1,0 +1,138 @@
+<div class="reserv container-fluid">
+    <div class="row min-vh-100 flex-column flex-md-row">
+        <%- include("templates/bootstrap")%>
+            <%- include("templates/nav")%>
+                <link rel="stylesheet" href="/habitaciones.css">
+                <main class="col back_hab px-0 flex-grow-1">
+                    <div class="container py-3">
+                        <article>
+                            <% if(salon){ %>
+
+                                <div class="containerreserva">
+                                    <div class="derreserva">
+                                        <h3>Detalle de Salones</h3>
+                                        <div>
+                                            <div class="row mt-4">
+                                                <div class="col">Numero: <input type="text" name="ids"
+                                                        value="<%= salon.IdSalon%>" readonly></div>
+                                                <div class="col">Precio: <%= salon.PrecioS %>
+                                                </div>
+                                                <div class="col">Capacidad max: <%= salon.CapacidadS%>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <% } %>
+                                    <div class="containerCliente">
+                                        <div class="row mt-5">
+
+                                            <!-- buscar mi cliente -->
+                                            <div class="col deCliente">
+                                                <!--///////////////////////////////////////////-->
+                                                <!-- Sección para buscar cliente por ID -->
+                                                <section class="title-reserva">
+                                                    <h2>Buscar cliente por DNI:</h2>
+                                                </section>
+
+                                                <section class="tabla-reserva mt-3">
+                                                    <form id="clienteForm">
+                                                        <label for="clienteDNI">ID del cliente:</label>
+                                                        <input type="text" id="clienteDNI" name="dni">
+
+                                                        <% if(salon){ %>
+                                                            <input type="hidden" id="idsalo" name="idsalo"
+                                                                value="<%= salon.IdSalon %>">
+
+                                                            <% } %>
+
+                                                                <button class="btn-reserva"
+                                                                    type="submit">Buscar</button>
+                                                    </form>
+                                                </section>
+
+                                                <!-- Mostrar información del cliente (si se encuentra) -->
+                                                <% if (cliente) { %>
+                                                    <h2>Información del cliente:</h2>
+                                                    <p class="parrafoC">Nombres:</p>
+                                                    <input class="detalle-cliente" type="text"
+                                                        value="<%= cliente.Nombres %>" readonly="true" disabled>
+
+                                                    <p class="parrafoC">Apellidos:</p>
+                                                    <input class="detalle-cliente" type="text"
+                                                        value="<%= cliente.Apellidos %>" readonly="true" disabled>
+
+                                                    <p class="parrafoC">DNI:</p>
+                                                    <input class="detalle-cliente" type="text"
+                                                        value="<%= cliente.DNI %>" readonly="true" disabled>
+
+                                                    <% } else { %>
+                                                        <!-- Mostrar mensaje si no se encontró un cliente con el ID especificado -->
+                                                        <p>No se encontró un cliente con el ID especificado.</p>
+                                                        <% } %>
+                                            </div>
+
+                                            <!-- registro del detalle de reserva -->
+                                            <div class="col deCliente">
+                                                <h3>Detalle Reservacion</h3>
+
+                                                <form action="/guardareservaS" method="post">
+                                                    <div class="row">
+                                                        <div class="col form mb-3">
+                                                            <label>Fecha de Alquiler:</label>
+                                                            <input name="fechaalquiler" type="date" class="form-control"
+                                                                required>
+                                                        </div>
+                                                        <% if(salon){ %>
+                                                            <input type="hidden" name="idsalon"
+                                                                value="<%= salon.IdSalon %>">
+                                                            <input type="hidden" id="precios" name="precios"
+                                                                value="<%= salon.PrecioS %>">
+
+                                                            <% } %>
+                                                                <% if(cliente){ %>
+                                                                    <input type="hidden" name="idclient"
+                                                                        value="<%= cliente.IdCliente %>">
+                                                                    <% } %>
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col form pt-4">
+                                                            <button
+                                                                class="form-control btn btn-secondary">Registrar</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                        </article>
+                    </div>
+                </main>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Manejar el envío del formulario de búsqueda de cliente
+        $("form#clienteForm").submit(function (e) {
+            e.preventDefault();
+            const dni = $("#clienteDNI").val();
+            const idsalo = $("#idsalo").val();
+
+            // Realizar la solicitud AJAX para buscar al cliente
+            $.get(`/buscarClienteS?dni=${dni}&idsalo=${idsalo}`, function (data) {
+                // Actualizar solo la sección "containerCliente" en la página
+                $(".containerCliente").html($(data).find(".containerCliente").html());
+            });
+        });
+    });
+    const dni = $("#clienteDNI").val();
+    const idsalo = $("#idsalo").val;
+</script>

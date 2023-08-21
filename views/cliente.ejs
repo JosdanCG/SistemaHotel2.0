@@ -1,0 +1,200 @@
+<div class="container-fluid">
+    <div class="row min-vh-100 flex-column flex-md-row">
+        <%- include("templates/bootstrap")%>
+            <%- include("templates/nav")%>
+
+
+
+                <link rel="stylesheet" href="/style.css">
+                <div class="col px-0 flex-grow-1">
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-md-9">
+
+                                <main class="tabla">
+
+
+
+
+                                    <section class="nav-title">
+                                        <h2>Listado de Clientes</h2>
+                                    </section>
+
+                                    <section class="tabla-cliente">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>n°</th>
+                                                    <th>DNI</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellido</th>
+                                                    <th>Celular</th>
+                                                    <th>Estado</th>
+                                                    <th>Accion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% results.forEach (user=> {%>
+                                                    <tr>
+                                                        <td>
+                                                            <%= user.IdCliente %>
+                                                        </td>
+                                                        <td>
+                                                            <%= user.DNI %>
+                                                        </td>
+                                                        <td>
+                                                            <%= user.Nombres %>
+                                                        </td>
+                                                        <td>
+                                                            <%= user.Apellidos %>
+                                                        </td>
+                                                        <td>
+                                                            <%= user.Telefono %>
+                                                        </td>
+                                                        <td>
+                                                            <%= user.EstadoC %>
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="/cambiarEstadoCliente/<%= user.IdCliente %>"
+                                                                class="btn btn-cliente delete"> <img
+                                                                    src="/delete_icon.svg"></img></a>
+                                                            <button class="btn btn-cliente edit"
+                                                                onclick="editarClienteModal('<%= user.IdCliente %>', '<%= user.Nombres %>', '<%= user.Apellidos %>', '<%= user.DNI %>', '<%= user.Telefono %>')">
+                                                                <img src="/edit_icon.svg"></img>
+                                                            </button>
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                    <% })%>
+                                            </tbody>
+                                        </table>
+
+                                    </section>
+
+                                </main>
+
+                            </div>
+
+                            <!--formulario del cliente-->
+                            <div class="col-md-3">
+                                <div class="card-body">
+                                    <form action="/guardarcliente" method="post" id="cliente-form">
+
+                                        <label class="text_form_client" for="nombres">Nombres</label>
+                                        <input type="text" name="name" placeholder="Nombre" class="form-control mb-2"
+                                            required autofocus />
+
+                                        <label class="text_form_client" for="apellidos" required>Apellidos</label>
+                                        <input type="text" name="apellido" placeholder="Apellido"
+                                            class="form-control mb-2" required autofocus />
+
+                                        <label class="text_form_client" for="dni">DNI</label>
+                                        <input type="text" name="dni" placeholder="DNI" class="form-control mb-2"
+                                            required />
+
+                                        <label class="text_form_client" for="telefono">Telefono</label>
+                                        <input type="text" name="celular" placeholder="Celular"
+                                            class="input_client form-control mb-2" required />
+
+                                        <button type="submit" class="btn btn-info">Guardar cliente</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
+
+<!-- Modal para editar cliente -->
+<div class="modal fade " id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel"
+    aria-hidden="true" data-backdrop="false" data-keyboard="false">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarModalLabel">Editar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form class="" action="/updatecliente" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="idcliente" id="idcliente">
+                    <div class="form-group">
+                        <label for="nombres">Nombres</label>
+                        <input type="text" name="name" class="form-control" id="nombres" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos</label>
+                        <input type="text" name="apellido" class="form-control" id="apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dni">DNI</label>
+                        <input type="text" name="dni" class="form-control" id="dni" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Telefono</label>
+                        <input type="text" name="celular" class="form-control" id="telefono" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-info">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función que se ejecuta al hacer clic en el botón de editar
+    function editarClienteModal(idCliente, nombres, apellidos, dni, telefono) {
+        // Rellenar los inputs del modal con la información del cliente
+        document.getElementById('idcliente').value = idCliente;
+        document.getElementById('nombres').value = nombres;
+        document.getElementById('apellidos').value = apellidos;
+        document.getElementById('dni').value = dni;
+        document.getElementById('telefono').value = telefono;
+        $('#editarModal').modal('show');
+    }
+
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('cliente-form');
+
+        form.addEventListener('submit', function (event) {
+            const nameInput = form.querySelector('input[name="name"]');
+            const apellidoInput = form.querySelector('input[name="apellido"]');
+            const dniInput = form.querySelector('input[name="dni"]');
+            const celularInput = form.querySelector('input[name="celular"]');
+
+            if (!nameInput.value || !apellidoInput.value || !dniInput.value || !celularInput.value) {
+                event.preventDefault(); // Evita el envío del formulario
+                showEmptyFieldsAlert();
+            }
+        });
+
+        function showEmptyFieldsAlert() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos vacíos',
+                text: 'Por favor, completa todos los campos antes de continuar.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    });
+</script>

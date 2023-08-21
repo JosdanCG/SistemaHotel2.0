@@ -1,0 +1,531 @@
+@import url("estilo.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Poppins:wght@200&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+@keyframes swing {
+    0% {
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(10deg);
+    }
+    30% {
+      transform: rotate(0deg);
+    }
+    40% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    60% {
+      transform: rotate(5deg);
+    }
+    70% {
+      transform: rotate(0deg);
+    }
+    80% {
+      transform: rotate(-5deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+}
+
+
+
+body{
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;   /*what's*/
+    /*background: linear-gradient(to right, #000000, #3a4745);*/
+    background: linear-gradient(to right, #c2ccc5, #6a6f4c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    vertical-align: middle;
+}
+
+
+aside {
+    background-color: #6a6f4c;
+}
+
+
+.sidebar-wrapper .sidebar-dropdown > a:after,
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before,
+.sidebar-wrapper ul li a i,
+.sidebar-wrapper .sidebar-menu ul li a {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+
+.login-card{
+    width: 450px;
+    background: rgba(255,255,255,.5);
+    padding: 4rem;
+    border-radius: 10px;  /*what's*/
+    position: relative;  /*what's*/
+}
+
+.login-card::before {
+    content: '';
+    position: absolute;
+    background: rgba(255,255,255,.15);
+    inset: 0;
+    transform: rotate(-5deg);
+    z-index: -1;
+}
+
+.login-card-logo {
+    margin-bottom: 5vh;
+}
+
+.login-card-logo img{
+    width: 130px;
+}
+
+.login-card-logo,
+.login-card-header,
+.login-card-footer {
+    text-align: center;
+}
+
+.login-card a {
+    text-decoration: none;
+    color: black;
+}
+
+.login-card a:hover {
+    text-decoration: underline;
+    color: #fff;
+}
+
+.login-card-header {
+    margin-bottom: 2rem;
+}
+
+.login-card-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
+.login-card-header h1 + div {   /*what's*/
+    font-size: calc(1rem * .8);
+    opacity: .8;
+}
+
+.login-card-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-card-form .form-item {
+    position: relative;   /*what's*/
+}
+
+.login-card-form .form-item .form-item-icon {
+    position: absolute;
+    top: .82rem;   /*what's interesting - da un espaciado asignado en la cabecera del objeto*/
+    left: 1.4rem;
+    font-size: 1.3rem;
+    opacity: .4;    /*what's*/
+}
+
+.login-card-form .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(1rem * .8);
+    margin-bottom: .5rem;   /*what's*/
+}
+
+.login-card-form .form-item-other {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(1rem * .8);
+}
+
+.login-card-footer {
+    margin-top: 1.5rem;
+    font-size: calc(1rem * .8);
+}
+
+.login-card input[type="text"],
+.login-card input[type="email"],
+.login-card input[type="password"] {
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,.3);
+    padding: 1rem 1.5rem;
+    padding-left: calc(1rem * 3.5);   /*what's  interesting*/
+    padding-right: calc(1rem * 3.5);
+    border-radius: 100px;
+    width: 100%;
+    transition: background .5s;   /*what's*/
+}
+
+.login-card input:focus {
+    background: #ffff;
+}
+
+.login-card input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: black;   /*what's  interesting*/
+}
+
+.login-card-form button {
+    background:#76826e;
+    color: black;
+    padding: 1rem;
+    border-radius: 100px;
+    text-transform: uppercase;   /*what's  interesting - agranda letra(mayusculas)*/
+    letter-spacing: 2px;
+    transition: background .5s;   /*what's  interesting*/
+}
+
+
+.login-card-social {
+    display: flex;
+    flex-direction: column;   /*what's  interesting*/
+    gap: 1.5rem;    /*what's*/
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.login-card-social > div {   /*what's*/
+    opacity: .8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: calc(1rem * .8);   /*what's*/
+}
+
+.login-card-social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.login-card-social-btn a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,.6);
+    border-radius: 180px;
+    transition: all .5s;   /*what's*/
+    text-decoration: none;
+}
+
+.login-card-social-btn a:hover {
+    background: #fff;
+    transform: scale(1.2);   /*agranda un radio calculado*/
+}
+.text_form_client{
+    color: #fff;
+}
+
+
+@media (max-width: 750px) {
+    body {
+        padding: 2rem 0;
+    }
+
+    .login-card {
+        width: 360px;
+        padding: 2rem;
+    }
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px; /* Ajustar el tamaño del modal aquí según tus necesidades */
+  }
+
+
+
+
+
+
+
+
+
+  /* ******************************* SIDE BAR **************************************** */
+
+
+
+  .sidebar-wrapper .sidebar-menu {
+    padding-bottom: 10px;
+}
+
+.sidebar-wrapper .sidebar-menu span {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px 10px 5px 10px;
+    display: inline-block;
+}
+
+.sidebar-wrapper .sidebar-menu ul li a {
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+    position: relative;
+    text-align: left;
+    padding: 8px 10px 8px 10px;
+    color: #c2ccc5;
+}
+
+.sidebar-wrapper .sidebar-menu ul li a i {
+    margin-right: 10px;
+    font-size: 12px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.sidebar-wrapper .sidebar-menu ul li a:hover > i::before {      
+    display: inline-block;
+    animation: swing ease-in-out 0.5s 1 alternate;
+    color: wheat;
+    
+}
+
+.sidebar-wrapper .sidebar-menu li span:hover {   
+    color: wheat;
+}
+
+.sidebar-wrapper .sidebar-menu ul li:hover {
+    background-color: #76826e;
+}
+
+
+.sidebar-wrapper .sidebar-menu > a:after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f105";
+    font-style: normal;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    background: 0 0;
+    position: absolute;
+    right: 15px;
+    top: 14px;
+}
+
+
+/*   view more about it     */
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu ul {
+    padding: 5px 0;
+    background-color: #3d412b;
+}
+  
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li {
+    padding-left: 25px;
+    font-size: 13px;
+}
+
+.sidebar-submenu ul li a:hover {
+    color: #fefefe;
+}
+  
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
+    content: "\f111";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-style: normal;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-right: 10px;
+    font-size: 8px;
+}
+  
+.sidebar-wrapper .sidebar-menu ul li a span.label,
+.sidebar-wrapper .sidebar-menu ul li a span.badge {
+    float: right;
+    margin-top: 8px;
+    margin-left: 5px;
+}
+  
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .badge,
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .label {
+    float: right;
+    margin-top: 0px;
+}
+  
+.sidebar-wrapper .sidebar-menu .sidebar-submenu {
+    display: none;
+}
+  
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a:after {
+    transform: rotate(90deg);
+    right: 17px;
+}
+
+
+
+
+
+
+    /* ******************************* SIDE BAR **************************************** */
+
+
+
+
+
+
+
+
+
+
+
+  /* ******************************* Modal - Cliente **************************************** */
+
+  .top {
+    top: 0;
+    height: 100vh;
+    background-color: #0004;
+    display: grid;
+    transition: .4s;
+    place-items: center;
+    
+    visibility: hidden;
+}
+
+.close {
+    top: 5em;
+    left: 70%;
+}
+
+.translate {
+    transform: translateY(-100%);
+}
+
+
+.form_cliente {
+    background-color: #c2ccc5;
+    height: 50dp;
+    padding: 4rem;
+    border-radius: .8rem;
+}
+
+
+
+
+  /* ******************************* Cliente **************************************** */
+
+
+  main.tabla {
+    height: 85vh;
+    background-color: #fff5;
+
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    overflow: hidden;
+  }
+
+  .nav-title {
+    height: 12%;
+    background-color: #fff4;
+    padding: .8rem 1rem;
+  }
+
+  .tabla-cliente {
+    max-height: 82%;
+
+    background-color: #fffb;
+    margin: .8rem 1rem 1rem;
+    border-radius: .8rem;
+    overflow: auto;
+    overflow-y: auto;
+  }
+
+  .tabla-cliente::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .tabla-cliente::-webkit-scrollbar-thumb {
+    background-color: #0004;
+    border-radius: .8rem;
+    visibility: hidden;
+  }
+
+  .tabla-cliente:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+  }
+
+  table, th, td {
+    padding: 2rem;
+    border-collapse: collapse;
+  }
+
+  table thead{
+    background-color: #a1d1c8df;
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+
+  tbody tr:nth-child(even) {  /* Pseudoclase */
+    background-color: #0000000b;
+  }
+
+  .btn-cliente {
+    padding: .4rem 0;
+    border-radius: 3rem;
+    text-align: center;
+    width: 45px;
+  }
+
+  .btn-cliente img {
+    height: 26px;
+  }
+
+  .btn-cliente.delete {
+    background-color: #b9798cdf;
+  }
+
+  .btn-cliente.edit {
+    left: 30px;
+    background-color: cadetblue;
+  }

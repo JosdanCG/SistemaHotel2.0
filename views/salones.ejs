@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <div class="row min-vh-100 flex-column flex-md-row">
+        <%- include("templates/bootstrap")%>
+            <%- include("templates/nav")%>
+                <div class="col px-0 flex-grow-1">
+                    <link rel="stylesheet" href="/salones.css">
+                    <div class="container ">
+                        <div class="row">
+                            <% result.forEach((user)=>{%>
+                                <div class="col-3  mt-2">
+                                    <%if(user.EstadoS==="Ocupado"){%>
+                                        <div id="cardd" class="card" style="background-color: red;">
+                                            <%} if(user.EstadoS==="Disponible" ){%>
+                                                <div id="cardd" class="card" style="background-color: #009688;">
+                                                    <%} if(user.EstadoS==="Limpiesa" ){%>
+                                                        <div id="cardd" class="card" style="background-color: #00d9ff;">
+                                                            <%} %>
+                                                                <div class="row justify-content-start">
+                                                                    <div class="col-7 mt-2 ms-3">
+                                                                        <h5 class="card-text">Nro: <%= user.Salon %>
+                                                                        </h5>
+                                                                        <p class="card-text">Capacidad: <%=
+                                                                                user.CapacidadS %>
+                                                                        </p>
+
+                                                                    </div>
+                                                                    <div class="col-4">
+                                                                        <img src="/icons/bar-counter.png"
+                                                                            class="card-img-top mt-1">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card text-estado text-center">
+                                                                    <p id="estado" class="card-text m-1">
+                                                                        <%= user.EstadoS %>
+                                                                            <a href="/reservaSal/<%= user.IdSalon%>"><img
+                                                                                    class="ms-2" src="/siguiente.png"
+                                                                                    width="20px" alt=""></a>
+                                                                            <button class=" btn-habitacion edit"
+                                                                                onclick="editarClienteModal('<%=user.IdSalon %>', '<%= user.EstadoS %>')">
+                                                                                <img src="/edit_icon.svg"
+                                                                                    width="20px"></img>
+                                                                            </button>
+                                                                    </p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <% }) %>
+                                        </div>
+
+                                </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
+<!-- Modal para editar estado de la habitacion -->
+<div class="modal fade " id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel"
+    aria-hidden="true" data-backdrop="false" data-keyboard="false">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarModalLabel">Editar Estado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form class="" action="/updateEstadoSal" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="idsalon" id="idsalon">
+
+
+                    <div class="form-group">
+                        <label for="Estado">Estado:"</label>
+                        <select name="estado" id="estado" class="form-control" required>
+                            <option value="ESA01">Ocupado</option>
+                            <option value="ESA02">Disponible</option>
+                            <option value="ESA03">Limpieza</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-info">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función que se ejecuta al hacer clic en el botón de editar
+    function editarClienteModal(idsalon, estadosal) {
+        // Rellenar los inputs del modal con la información del cliente
+        document.getElementById('idsalon').value = idsalon;
+        document.getElementById('estado').value = estadosal;
+        $('#editarModal').modal('show');
+    }
+
+</script>

@@ -1,0 +1,28 @@
+
+:root {
+    --color-limpieza: hsl(200, 55%, 70%);
+    --color-totalhabi: hsl(244, 44%, 39%);
+    --color-disponible: hsl(155, 41%, 55%);
+    --color-ocupado: hsl(0, 95%, 75%);
+}
+
+.tota {
+    border-left-color: var(--color-totalhabi);
+    border-left-width: 10px;
+}
+
+.disp {
+    border-left-color: var(--color-disponible);
+    border-left-width: 10px;
+}
+
+.ocup {
+    border-left-color: var(--color-ocupado);
+    border-left-width: 10px;
+}
+
+.limp {
+    
+    border-left-color: var(--color-limpieza);
+    border-left-width: 10px;
+}

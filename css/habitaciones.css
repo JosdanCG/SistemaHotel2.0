@@ -1,0 +1,168 @@
+body{
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;   /*what's*/
+    /*background: linear-gradient(to right, #000000, #3a4745);*/
+    background: linear-gradient(to right, #c2ccc5, #6a6f4c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    vertical-align: middle;
+}
+
+
+
+.parrafoC{
+    margin-bottom: 10px;
+}
+.ocultar{
+    display: none;
+}
+.inputde{
+    width: 65%;
+}
+.back_hab{
+    background: linear-gradient(to right, #c2ccc5, #6a6f4c);
+}
+
+.cont-card{ 
+    background-color: #9b8686;
+    color: aliceblue;
+}
+.text-estado{
+    color: black;
+}
+
+.hab {
+    border-color: aliceblue;
+}
+
+
+.reserv {
+    background: rgb(80, 81, 95);
+}
+
+
+article {
+    padding: 20px;
+}
+
+
+.containerreserva {
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 .4rem .8rem #0005;
+    background-color: #ffff;
+}
+
+.pago {
+    
+    border: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 .4rem .8rem #0005;
+    background-color: #ffff;
+}
+
+
+.derreserva h3 {
+    border-bottom-color: rgb(80, 81, 95);
+    border-bottom-style: solid;
+    background-color: #fff4;
+}
+
+
+.containerCliente {
+    height: 56%;
+    width: 95%;
+    padding: 2rem 2rem 0rem;
+    background-color: #fffb;
+    margin: 2rem 1rem 1rem;
+    border-radius: .8rem;
+    overflow: auto;
+}
+
+
+
+.title-reserva {
+    height: 15%;
+    padding: .1rem;
+}
+
+
+
+.derreserva .row input {
+    border: none;
+    background-color: #fff;
+}
+
+.deCliente input, button {
+    border-radius: .8rem;
+}
+
+form .btn-reserva {
+    background-color: #6a6f4c;
+    width: 20vh;
+    color: #c2ccc5;
+    text-shadow: #fffb;
+}
+
+form .btn-reserva:hover {
+    background-color: #c2ccc5;
+    color: #fffb;
+}
+
+.deCliente .detalle-cliente {
+    background-color: #fff4;
+}
+
+
+.pago h3, label {
+    font-weight: bold;
+}
+
+/***************************************** PAGOS */
+
+.logo-p {
+    height: 65px;
+}
+
+.inputp {
+    background-color: transparent;
+    border: none;
+}
+
+.contain {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.column-title {
+    flex: 1;
+    padding: 10px;
+    margin: 5px;
+}
+
+.column {
+    flex: 1;
+    background-color: #6a6f4c;
+    border: 1px #6a6f4c;
+    border-radius: .8rem;
+    padding: 15px;
+    margin: 5px;
+}
+
+.container-detalle {
+    height: fit-content;
+    
+    background-color: #c2ccc5;
+    border-radius: .8rem;
+}

@@ -1,0 +1,97 @@
+<%- include("templates/bootstrap") %>
+
+
+    <div class="login-card-container">
+        <link rel="stylesheet" href="/style.css">
+        <div class="login-card">
+            <div class="login-card-logo">
+                <img src="/logo_hover_icon.svg" alt="La Casa De Mi Viejo">
+            </div>
+
+            <div class="login-card-header">
+                <h1>Log In</h1>
+                <div>Ingrese sus datos para ingresar a la plataforma</div>
+            </div>
+
+
+            <form class="login-card-form" action="/session" method="post">
+                <div class="form-item">
+                    <span class="form-item-icon material-symbols-outlined">person</span>
+                    <input type="text" name="user" placeholder="Ingresar codigo" required autofocus>
+                </div>
+                <div class="form-item">
+                    <span class="form-item-icon material-symbols-outlined">lock</span>
+                    <input type="password" name="passw" placeholder="Ingresar contraseña" required autofocus>
+                </div>
+                <button id="in" type="submit">INGRESAR</button>
+            </form>
+
+
+        </div>
+        <div class="login-card-social">
+            <div>Ir Pagina Principal</div>
+            <div class="login-card-social-btn">
+                <a href="https://lacasademiviejo.com/">
+                    <span class="material-symbols-outlined">double_arrow</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('in').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Verificar si los campos de credenciales están vacíos
+            const username = document.querySelector('input[name="user"]').value;
+            const password = document.querySelector('input[name="passw"]').value;
+
+            if (username.trim() === '' || password.trim() === '') {
+                // Mostrar mensaje de advertencia porque los campos están vacíos
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Error campos vacíos',
+                    text: 'Ingresa tus credenciales para continuar',
+                    allowOutsideClick: false,
+                    allowEnterKey: false,
+                });
+            } else {
+                // Simular una verificación de autenticación en el lado del servidor (reemplaza esto con el código real del servidor)
+                const isAuthenticated = verificarCredenciales(username, password);
+
+                if (isAuthenticated) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Inicio de sesión exitoso',
+                        text: 'Tus credenciales son válidas. ¡Bienvenido!',
+                        allowOutsideClick: false,
+                        allowEnterKey: false,
+                        preConfirm: function () {
+                            document.querySelector('.login-card-form').submit();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de inicio de sesión',
+                        text: 'Credenciales incorrectas. Por favor, verifica tus datos e intenta nuevamente.',
+                        allowOutsideClick: false,
+                        allowEnterKey: false,
+                    });
+                }
+            }
+        });
+
+        // Función para simular la verificación de autenticación en el lado del servidor (reemplaza esto con el código real del servidor)
+        function verificarCredenciales(username, password) {
+            const usuariosValidos = {
+                'ADMIN': '54321',
+                'RECEPCION': '12345',
+
+            };
+
+            return usuariosValidos.hasOwnProperty(username) && usuariosValidos[username] === password;
+        }
+    </script>

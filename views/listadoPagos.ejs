@@ -1,0 +1,82 @@
+<div class="container-fluid">
+    <div class="row min-vh-100 flex-column flex-md-row">
+        <%- include("templates/bootstrap")%>
+            <%- include("templates/nav")%>
+
+
+
+                <link rel="stylesheet" href="/style.css">
+                <div class="col px-0 flex-grow-1">
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-md">
+
+                                <main class="tabla">
+
+
+
+
+                                    <section class="nav-title">
+                                        <h2>Listado de Pagos de Habitaciones</h2>
+                                    </section>
+
+                                    <section class="tabla-cliente">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>N° Habitacion</th>
+                                                    <th>Tipo Pago</th>
+                                                    <th>Fecha Emitida</th>
+                                                    <th>Total</th>
+                                                    <th>Comprobante</th>
+                                                    <th>Accion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% results.forEach (user=> {%>
+                                                    <tr>
+                                                        <td>
+                                                            <%= user.IdPago %>
+                                                        </td>
+                                                        <td>
+                                                            <%= user.NmroHabitacion %>
+                                                        </td>
+                                                        <td>
+                                                            <%= user.TipoPago %>
+                                                        </td>
+                                                        <td>
+                                                            <%= new Date(user.FEmision).toISOString().split('T')[0] %>
+
+                                                        </td>
+                                                        <td> S/.
+                                                            <%= user.TotalP %>.00
+                                                        </td>
+                                                        <td>
+                                                            <%= user.Comprobante %>
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="/pdf/<%= user.IdPago %>" class="btn btn-cliente ">
+                                                                pdf</a>
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                    <% })%>
+                                            </tbody>
+                                        </table>
+
+                                    </section>
+
+                                </main>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>

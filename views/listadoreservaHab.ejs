@@ -1,0 +1,162 @@
+<div class="container-fluid">
+    <div class="row min-vh-100 flex-column flex-md-row">
+        <%- include("templates/bootstrap")%>
+            <%- include("templates/nav")%>
+
+
+
+                <link rel="stylesheet" href="/style.css">
+                <div class="col px-0 flex-grow-1">
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-md">
+
+                                <main class="tabla">
+
+
+
+
+                                    <section class="nav-title">
+                                        <h2>Listado de Reservas Habitaciones</h2>
+                                    </section>
+
+                                    <section class="tabla-cliente">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>N° Habitacion</th>
+                                                    <th>Cliente</th>
+                                                    <th>FEntrada</th>
+                                                    <th>FSalida</th>
+                                                    <th>Total</th>
+                                                    <th>Pagado %</th>
+                                                    <th>Accion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% results.forEach (user=> {%>
+                                                    <tr>
+                                                        <td>
+                                                            <%= user.IdReservaH %>
+                                                        </td>
+                                                        <td>
+                                                            <%= user.NmroHabitacion %>
+                                                        </td>
+                                                        <td>
+                                                            <%= user.nombre_cliente %>
+                                                        </td>
+                                                        <td>
+                                                            <%= new Date(user.FEntrada).toISOString().split('T')[0] %>
+                                                        </td>
+                                                        <td>
+                                                            <%= new Date(user.FSalida).toISOString().split('T')[0] %>
+                                                        </td>
+                                                        <td> S/.
+                                                            <%= user.TotalP %>.00
+                                                        </td>
+                                                        <td>
+                                                            <%= user.Pagado %>
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="/pagos/<%= user.IdReservaH %>"
+                                                                class="btn btn-cliente delete"> <img
+                                                                    src="/pago_icon.svg"></img></a>
+                                                            <button class="btn btn-cliente edit"
+                                                                onclick="editarClienteModal('<%= user.IdReservaH %>', '<%= user.FEntrada %>', '<%= user.FSalida %>', '<%= user.Pagado %>', '<%= user.precio_habitacion %>')">
+                                                                <img src="/edit_icon.svg"></img>
+                                                            </button>
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                    <% })%>
+                                            </tbody>
+                                        </table>
+
+                                    </section>
+
+                                </main>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
+
+<!-- Modal para editar reservaHab -->
+<div class="modal fade " id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel"
+    aria-hidden="true" data-backdrop="false" data-keyboard="false">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarModalLabel">Editar Reserva Habitacion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form class="" action="/updateReservaHab" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="idreservahab" id="idreservahab">
+
+                    <div class="form-group">
+                        <label>Fecha de Entrada:</label>
+                        <input type="date" name="fechaentrada" class="form-control" id="fechaentrada" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Fecha de Salida:</label>
+                        <input type="date" name="fechasalida" class="form-control" id="fechasalida" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Costo de Habitacion:</label>
+                        <input type="text" name="precio_habitacion" class="form-control" id="precio_habitacion" required
+                            readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Pagado %:"</label>
+                        <select name="pagado" id="pagado" class="form-control" required>
+                            <option value="0%">0%</option>
+                            <option value="50%">50%</option>
+                            <option value="100%">100%</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-info">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Función que se ejecuta al hacer clic en el botón de editar
+    function editarClienteModal(idreservahab, fechaentrada, fechasalida, pagado, precio_habitacion) {
+        // Rellenar los inputs del modal con la información del cliente
+        const formattedFechaEntrada = new Date(fechaentrada).toISOString().split('T')[0];
+        const formattedFechaSalida = new Date(fechasalida).toISOString().split('T')[0];
+
+        console.log(formattedFechaEntrada);
+        console.log(formattedFechaSalida);
+        document.getElementById('idreservahab').value = idreservahab;
+        document.getElementById('fechaentrada').value = formattedFechaEntrada;
+        document.getElementById('fechasalida').value = formattedFechaSalida;
+        document.getElementById('pagado').value = pagado;
+        document.getElementById('precio_habitacion').value = precio_habitacion;
+
+        $('#editarModal').modal('show');
+    }
+
+</script>
